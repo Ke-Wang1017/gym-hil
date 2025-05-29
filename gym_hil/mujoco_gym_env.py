@@ -234,7 +234,7 @@ class FrankaGymEnv(MujocoGymEnv):
         # Set the mocap position
         pos = self._data.mocap_pos[0].copy()
         dpos = np.asarray([x, y, z])
-        npos = np.clip(pos + dpos * 0.05, *self._cartesian_bounds)
+        npos = np.clip(pos + dpos * 0.03, *self._cartesian_bounds)
         self._data.mocap_pos[0] = npos
 
         # Set gripper grasp
