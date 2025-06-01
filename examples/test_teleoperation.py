@@ -25,7 +25,7 @@ import gym_hil  # noqa: F401
 
 def main():
     parser = argparse.ArgumentParser(description="Control Franka robot interactively")
-    parser.add_argument("--step-size", type=float, default=0.01, help="Step size for movement in meters")
+    parser.add_argument("--step-size", type=float, default=0.5, help="Step size for movement in meters")
     parser.add_argument(
         "--render-mode", type=str, default="human", choices=["human", "rgb_array"], help="Rendering mode"
     )
@@ -40,6 +40,17 @@ def main():
         help="Delay in seconds when resetting the environment (0.0 means no delay)",
     )
     args = parser.parse_args()
+    ee_space_bounds = {
+        "max": [
+            0.6,
+            0.3,
+            0.5
+        ],
+        "min": [
+            0.2,
+            -0.3,
+            0.0
+        ]}
 
     # Create Franka environment - Use base environment first to debug
     env = gym.make(
@@ -66,6 +77,7 @@ def main():
         step_size=args.step_size,
         use_gamepad=not args.use_keyboard,
         max_episode_steps=1000,  # 100 seconds * 10Hz
+        ee_space_bounds=ee_space_bounds,
         controller_config_path=args.controller_config,
         reset_delay_seconds=args.reset_delay,
     )
