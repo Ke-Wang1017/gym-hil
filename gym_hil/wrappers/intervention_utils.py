@@ -310,7 +310,7 @@ class GamepadController(InputController):
             self.running = False
             return
 
-        self.joystick = pygame.joystick.Joystick(0)
+        self.joystick = pygame.joystick.Joystick(1)
         self.joystick.init()
         joystick_name = self.joystick.get_name()
         print(f"Initialized gamepad: {joystick_name}")
@@ -352,6 +352,7 @@ class GamepadController(InputController):
         # If controller config is not loaded, use default values
         if not self.controller_config:
             self.controller_config = load_controller_config()
+        
 
         # Get button mappings from config
         buttons = self.controller_config.get("buttons", {})
